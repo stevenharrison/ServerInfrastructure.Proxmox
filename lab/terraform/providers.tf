@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      # version = ">= 0.70.0"  # optional pin
+    }
+  }
+}
 
 provider "proxmox" {
   pm_api_url      = "https://192.168.178.117:8006/api2/json"
