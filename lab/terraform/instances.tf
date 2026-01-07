@@ -1,15 +1,15 @@
-resource "proxmox_vm_qemu" "test_vm" {
-  name        = "tf-test-01"
-  target_node = "pve"
-  clone       = "ubuntu-template"
+# resource "proxmox_vm_qemu" "test_vm" {
+#   name        = "tf-test-01"
+#   target_node = "pve"
+#   clone       = "ubuntu-template"
 
-  cores  = 1
-  memory = 1024
+#   cores  = 1
+#   memory = 1024
 
-  network {
-    bridge = "vmbr1"
-  }
-}
+#   network {
+#     bridge = "vmbr1"
+#   }
+# }
 
 resource "proxmox_vm_qemu" "test_vm" {
   name        = "tf-iso-01"
