@@ -1,41 +1,35 @@
-# resource "proxmox_vm_qemu" "test_vm" {
-#   name        = "tf-test-01"
-#   target_node = "pve"
-#   clone       = "ubuntu-template"
+resource "proxmox_virtual_environment_vm" "test_vm" {
+  name      = "tf-test-01"
+  node_name = "pve" # <-- your Proxmox node name (e.g. pve, pve1, proxmox)
 
-#   cores  = 1
-#   memory = 1024
-
-#   network {
-#     bridge = "vmbr1"
-#   }
-# }
-
-resource "proxmox_vm_qemu" "test_vm" {
-  name        = "tf-iso-01"
-  target_node = "pve"
-
-  # Boot/install media already uploaded to Proxmox
-  iso = "local:iso/ubuntu-24.04.2-live-server-amd64.iso"
-
-  cores  = 1
-  memory = 1024
-
-  # VM disk (pick your storage)
-  scsihw = "virtio-scsi-pci"
-  disk {
-    slot    = "scsi0"
-    type    = "scsi"
-    storage = "local-lvm"
-    size    = "20G"
+  # Clone from an existing Proxmox VM template
+  clone {
+    vm_id = 9001 # <-- CHANGE to your template VMID
+    # You can also set "full" = true/false depending on your preference/version.
   }
 
-  # NIC
-  network {
+  cpu {
+    cores = 1
+    type  = "host"
+  }
+
+  memory {
+    dedicated = 1024
+  }
+
+  # Primary disk
+  disk {
+    interface    = "scsi0"
+    datastore_id = "local-lvm"  # <-- CHANGE if your storage differs
+    size         = 20           # GiB
+  }
+
+  network_device {
     bridge = "vmbr1"
     model  = "virtio"
   }
 
-  # Boot order (syntax varies a bit by provider version)
-  boot = "order=ide2;scsi0;net0"
+  agent {
+    enabled = true
+  }
 }
