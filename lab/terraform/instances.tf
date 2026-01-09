@@ -1,6 +1,6 @@
 resource "proxmox_virtual_environment_vm" "test_vm" {
   name      = "tf-test-01"
-  node_name = "pve" # <-- your Proxmox node name (e.g. pve, pve1, proxmox)
+  node_name = "proxmox" # <-- your Proxmox node name (e.g. pve, pve1, proxmox)
 
   pool_id = "lab"
 
