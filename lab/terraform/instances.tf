@@ -2,9 +2,12 @@ resource "proxmox_virtual_environment_vm" "test_vm" {
   name      = "tf-test-01"
   node_name = "pve" # <-- your Proxmox node name (e.g. pve, pve1, proxmox)
 
+  pool_id = "lab"
+
   # Clone from an existing Proxmox VM template
   clone {
     vm_id = 9001 # <-- CHANGE to your template VMID
+    full = true
     # You can also set "full" = true/false depending on your preference/version.
   }
 
