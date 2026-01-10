@@ -24,7 +24,7 @@ resource "proxmox_virtual_environment_vm" "test_vm" {
   disk {
     interface    = "scsi0"
     datastore_id = "local-lvm"  # <-- CHANGE if your storage differs
-    size         = 20           # GiB
+    size         = 40           # GiB
   }
 
   network_device {
