@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "test_vm" {
-  name      = "tf-test-01"
+  name      = "${var.lab_name}-test-01"
   node_name = "proxmox" # <-- your Proxmox node name (e.g. pve, pve1, proxmox)
 
   pool_id = "lab"
